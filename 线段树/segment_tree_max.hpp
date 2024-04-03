@@ -4,17 +4,18 @@
 
 
 /**
- * 维护区间和的线段树
+ * 维护区间最大值的线段树
 */
 
-class SegTree {
+
+class SegTreeMax {
     struct Node {
-        int sum;    // 区间和
+        int max;    // 最大值
         int tag;    // 懒标记
         int lc, rc; // left child, right child
     };
 public:
-    SegTree() {
+    SegTreeMax() {
         
     }
     void update(int start, int end, int val, int l = 0, int r = 1e9, int idx = 0) {
@@ -26,7 +27,7 @@ public:
         make_sure(idx);
 
         if(l >= start && r <= end) {
-            tr_[idx].sum += val * (r - l + 1);
+            tr_[idx].max += val;
             tr_[idx].tag += val;
             return;
         }
@@ -48,13 +49,13 @@ public:
             return 0;
         }
         if(l >= start && r <= end) {
-            return tr_[idx].sum;
+            return tr_[idx].max;
         }
 
         int mid = l + r >> 1;
         make_sure(idx);
         push_down(idx, l, r);
-        return query(start, end, l, mid, tr_[idx].lc) + query(start, end, mid + 1, r, tr_[idx].rc);
+        return std::max(query(start, end, l, mid, tr_[idx].lc), query(start, end, mid + 1, r, tr_[idx].rc));
     }
 
 private:
@@ -74,7 +75,7 @@ private:
     }
 
     inline void push_up(int idx) {
-        tr_[idx].sum = tr_[tr_[idx].lc].sum + tr_[tr_[idx].rc].sum;
+        tr_[idx].max = std::max(tr_[tr_[idx].lc].max, tr_[tr_[idx].rc].max);
     }
 
     void push_down(int idx, int l, int r) {
@@ -88,8 +89,8 @@ private:
             left.tag += tag;
             right.tag += tag;
 
-            left.sum += (mid - l + 1) * tag;
-            right.sum += (r - mid) * tag;
+            left.max += tag;
+            right.max += tag;
 
             tr_[idx].tag = 0;
         }
@@ -98,20 +99,3 @@ private:
 private:
     std::vector<Node> tr_;
 };
-
-
-
-
-
-
-int main() {
-    SegTree tree;
-
-    tree.update(190, 200, 99);
-
-    tree.update(200, 300, 1);
-
-    std::cout << tree.query(200, 200) << std::endl;
-
-    return 0;
-}
