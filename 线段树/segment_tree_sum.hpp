@@ -61,14 +61,14 @@ private:
 
     void make_sure(int idx) {
         while(idx >= tr_.size()) {
-            tr_.emplace_back(0, 0, -1, -1);
+            tr_.emplace_back(Node{0, 0, -1, -1});
         }
         if(tr_[idx].lc == -1) {
-            tr_.emplace_back(0, 0, -1, -1);
+            tr_.emplace_back(Node{0, 0, -1, -1});
             tr_[idx].lc = tr_.size() - 1;
         }
         if(tr_[idx].rc == -1) {
-            tr_.emplace_back(0, 0, -1, -1);
+            tr_.emplace_back(Node{0, 0, -1, -1});
             tr_[idx].rc = tr_.size() - 1;
         }
     }

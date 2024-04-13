@@ -1,28 +1,42 @@
 #include <iostream>
 #include "segment_tree_max.hpp"
 #include "segment_tree_sum.hpp"
-
+#include "segment_tree_trans.hpp"
 
 
 int main() {
-    SegTreeMax tree;
+    {
+        SegTreeMax tree;
 
-    tree.update(190, 200, 99);
+        tree.update(190, 200, 99);
 
-    tree.update(200, 300, 1);
+        tree.update(200, 300, 1);
 
-    std::cout << tree.query(200, 200) << std::endl;
+        std::cout << tree.query(200, 200) << std::endl;
+    }
 
 
 
 
-    SegTreeSum tree2;
+    {
+        SegTreeSum tree;
 
-    tree2.update(190, 200, 99);
+        tree.update(190, 200, 99);
 
-    tree2.update(200, 300, 1);
+        tree.update(200, 300, 1);
 
-    std::cout << tree2.query(200, 200) << std::endl;
+        std::cout << tree.query(200, 200) << std::endl;
+    }
+
+    {
+        SegTreeTrans tree;
+        tree.update_point(1, 100); // pos_1 += 100
+        tree.update_point(9, 10);  // pos_9 += 10
+
+        tree.zero(1, 8);            // 区间1-8 置零
+
+        std::cout << tree.query_point(1) << " " << tree.query_point(9) << std::endl;
+    }
 
     return 0;
 }
