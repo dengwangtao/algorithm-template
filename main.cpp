@@ -3,6 +3,7 @@
 #include "segment_tree_sum.hpp"
 #include "segment_tree_trans.hpp"
 
+#include "str_hash.h"
 
 int main() {
     {
@@ -36,6 +37,12 @@ int main() {
         tree.zero(1, 8);            // 区间1-8 置零
 
         std::cout << tree.query_point(1) << " " << tree.query_point(9) << std::endl;
+    }
+
+    {
+        StringHash sh("123456123");
+
+        std::cout << "StringHash: " << (sh.get(0, 2) == sh.get(6, 8)) << std::endl;
     }
 
     return 0;
