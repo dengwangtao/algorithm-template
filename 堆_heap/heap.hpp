@@ -60,9 +60,9 @@ private:
             size_t fa = (idx - 1) / 2;
             if(m_cmp(m_heap[idx].second, m_heap[fa].second)) {
                 std::swap(m_heap[fa], m_heap[idx]);
-                idx = fa;
                 m_map[m_heap[idx].first] = idx;
                 m_map[m_heap[fa].first] = fa;
+                idx = fa;
             } else return idx;
         }
         return idx;
@@ -78,9 +78,9 @@ private:
             if(rc < n && m_cmp(m_heap[rc].second, m_heap[cur].second)) cur = rc;
             if(cur == idx) return idx;
             std::swap(m_heap[cur], m_heap[idx]);
-            idx = cur;
             m_map[m_heap[idx].first] = idx;
             m_map[m_heap[cur].first] = cur;
+            idx = cur;
         }
         return idx;
     }
